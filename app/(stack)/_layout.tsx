@@ -1,4 +1,4 @@
-import { Stack } from 'expo-router'
+import {Stack} from 'expo-router'
 import React from 'react'
 
 const StackLayout = () => {
@@ -7,11 +7,17 @@ const StackLayout = () => {
             headerShown: false,
         }}>
             <Stack.Screen
-                name='auth/index'
-                options={{ title: 'Login', headerShown: false }} />
+                name='auth/login'
+                options={{title: 'Login', headerShown: false}}/>
+            <Stack.Screen
+                name='auth/register'
+                options={{title: 'Register', headerShown: false}}/>
             <Stack.Screen
                 name='(drawer)'
-                options={{ title: 'App', headerShown: false }} />
+                options={{title: 'App', headerShown: false}}/>
+            <Stack.Screen
+                name='recipe/[id]'
+                options={{title: 'Recipe', headerShown: false}}/>
         </Stack>
     )
 }

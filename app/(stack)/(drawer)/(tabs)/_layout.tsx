@@ -16,12 +16,6 @@ const TabsLayout = () => {
                     tabBarIcon: ({ color }) => <Ionicons size={28} name="home-outline" color={color} />,
                 }}
             />
-            <Tabs.Screen
-                name="recipe/[id]"
-                options={{
-                    href: null, // oculta de la tab bar
-                }}
-            />
         </Tabs>
     )
 }
