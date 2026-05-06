@@ -5,7 +5,7 @@ import {useUserStore} from "@/presentation/hooks/store/useStore";
 import ThemedTextInput from "@/presentation/components/shared/ThemedTextInput";
 import {useAuth} from "@/presentation/hooks/auth/useAuth";
 
-const AuthScreen = () => {
+const LoginScreen = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -19,7 +19,7 @@ const AuthScreen = () => {
                     useUserStore.getState().login(user);
                     router.push("/home");
                 },
-                onError: (error) => {
+                onError: () => {
                     setError("No se ha podido acceder al usuario");
                 }
             }
@@ -89,4 +89,4 @@ const AuthScreen = () => {
     );
 }
 
-export default AuthScreen
+export default LoginScreen
