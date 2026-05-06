@@ -90,7 +90,7 @@ const RegisterScreen = () => {
                     </Text>
                     <Text
                         className="text-blue-600 font-semibold"
-                        onPress={() => router.push("/auth/register")}
+                        onPress={() => router.push("/auth/login")}
                     >
                         Iniciar sesión
                     </Text>
