@@ -1,7 +1,7 @@
 import {APIHandler} from "@/core/api/api_handler";
 import {User} from "@/types/User";
 
-export const postLogin = async (email: string, password: string) => {
+export const postLogin = async (email: string, password: string): Promise<User> => {
     try {
         const response = await APIHandler.post<User>("/login", {
             email,
