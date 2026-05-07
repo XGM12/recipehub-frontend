@@ -1,4 +1,4 @@
-import {FlatList, View} from "react-native";
+import {View} from "react-native";
 import {Recipe} from "@/types/Recipes";
 import RecipeCard from "@/presentation/components/recipes/RecipeCard";
 

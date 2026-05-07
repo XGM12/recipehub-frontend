@@ -18,3 +18,29 @@ export const getCommunityRecipes = async (id: number): Promise<Recipe[]> => {
         throw error;
     }
 }
+
+export const getRecipe = async (id: number): Promise<Recipe> => {
+    try {
+        const response = await APIHandler.get<Recipe>(`/recipes/${id}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const postFavoriteRecipe = async (userId: number, recipeId: number) => {
+    try {
+        const response = await APIHandler.post<Recipe>(`users/${userId}/favourites/${recipeId}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const deleteFavoriteRecipe = async (userId: number, recipeId: number) => {
+    try {
+        await APIHandler.delete(`/users/${userId}/favourites/${recipeId}`);
+    } catch (error) {
+        throw error;
+    }
+}
