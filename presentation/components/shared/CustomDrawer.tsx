@@ -1,5 +1,5 @@
-import { Ionicons } from '@expo/vector-icons'
-import { DrawerContentComponentProps, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
+import {Ionicons} from '@expo/vector-icons'
+import {DrawerContentComponentProps, DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer'
 import React from 'react'
 import {Text, TouchableOpacity, View} from 'react-native'
 import {useRouter} from "expo-router";
@@ -7,7 +7,7 @@ import {useUserStore} from "@/presentation/hooks/store/useStore";
 import {APIHandler} from "@/core/api/api_handler";
 
 const CustomDrawer = (props: DrawerContentComponentProps) => {
-    const { logout, user } = useUserStore();
+    const {logout, user} = useUserStore();
     const router = useRouter();
 
     const handleLogout = () => {
@@ -32,26 +32,34 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
 
             <DrawerItem
                 label="Inicio"
-                icon={({ color, size }) => (
-                    <Ionicons name="home-outline" size={size} color={color} />
+                icon={({color, size}) => (
+                    <Ionicons name="home-outline" size={size} color={color}/>
                 )}
                 onPress={() => router.push('/home')}
             />
 
             <DrawerItem
+                label={"Perfil"}
+                icon={({color, size}) => (
+                    <Ionicons name="person-outline" size={size} color={color}/>
+                )}
+                onPress={() => router.push("/profile")}
+            />
+
+            <DrawerItem
                 label="Cerrar sesión"
-                icon={({ color, size }) => (
-                    <Ionicons name="log-out-outline" size={size} color={color} />
+                icon={({color, size}) => (
+                    <Ionicons name="log-out-outline" size={size} color={color}/>
                 )}
                 onPress={handleLogout}
             />
 
-            <View style={{ marginHorizontal: 16, marginTop: 8 }}>
+            <View style={{marginHorizontal: 16, marginTop: 8}}>
                 <TouchableOpacity
-                    style={{ backgroundColor: '#dc2626', padding: 12, borderRadius: 12 }}
+                    style={{backgroundColor: '#dc2626', padding: 12, borderRadius: 12}}
                     onPress={handleDeleteUser}
                 >
-                    <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>
+                    <Text style={{color: 'white', textAlign: 'center', fontWeight: 'bold'}}>
                         Borrar usuario
                     </Text>
                 </TouchableOpacity>

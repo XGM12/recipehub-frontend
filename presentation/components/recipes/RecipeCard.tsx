@@ -3,7 +3,6 @@ import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {Recipe} from "@/types/Recipes";
 import {router} from "expo-router";
 import {useState} from "react";
-import { useUser } from '@/presentation/hooks/user/useUser';
 
 interface Props {
     recipe: Recipe;
@@ -12,8 +11,6 @@ interface Props {
 
 const RecipeCard = ({recipe}: Props) => {
     const [imageError, setImageError] = useState(false);
-	const {queryUserById} = useUser(recipe.createdBy as number);
-	const creator = queryUserById.data;
 
     return (
         <TouchableOpacity
@@ -43,19 +40,18 @@ const RecipeCard = ({recipe}: Props) => {
                     {recipe.category}
                 </Text>
 
-				<TouchableOpacity
-                    onPress={() => router.push(`/profile/${recipe.createdBy}`)}
-                    className='flex-row items-center mt-1'
-                    style={{gap: 4}}
-                >
-                    <Ionicons name='person-circle-outline' size={14} color='#9ca3af'/>
-                    <Text className='text-xs text-gray-400'>
-                        {recipe.createdBy === null
-                            ? 'RecipeHub'
-                            : creator?.name ?? '...'
-                        }
-                    </Text>
-                </TouchableOpacity>
+                {recipe.createdBy !== null && (
+                    <TouchableOpacity
+                        onPress={() => router.push(`/profile/${recipe.createdBy?.id}`)}
+                        className='flex-row items-center mt-1'
+                        style={{ gap: 4 }}
+                    >
+                        <Ionicons name='person-circle-outline' size={14} color='#9ca3af' />
+                        <Text className='text-xs text-gray-400'>
+                            {recipe.createdBy?.name ?? '...'}
+                        </Text>
+                    </TouchableOpacity>
+                )}
 
                 <View className='flex-row items-center mt-2' style={{gap: 16}}>
                     <View className='flex-row items-center' style={{gap: 4}}>

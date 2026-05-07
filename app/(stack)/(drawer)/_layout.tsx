@@ -32,6 +32,14 @@ const DrawerLayout = () => {
                     ),
                 }}
             />
+
+            <Drawer.Screen
+                name="profile/[id]"
+                options={{
+                    title: 'Usuario',
+                    drawerItemStyle: { display: 'none' },
+                }}
+            />
         </Drawer>
     )
 }

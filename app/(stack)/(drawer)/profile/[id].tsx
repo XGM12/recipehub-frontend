@@ -11,10 +11,10 @@ const UserProfile = () => {
 	const { queryUserById } = useUser(id as string);
 	const user = queryUserById.data;
 
-	if (!user) return null;
-
-	const { queryFavourite } = useRecipes(user.id);
+	const { queryFavourite } = useRecipes(user?.id);
 	const recipes = queryFavourite.data?.flat() ?? [];
+
+	if (!user) return null;
 
 	return (
 		<SafeAreaView className='flex-1 bg-white'>

@@ -21,7 +21,7 @@ export const getCommunityRecipes = async (id: number): Promise<Recipe[]> => {
 
 export const getRecipe = async (id: number): Promise<Recipe> => {
     try {
-        const response = await APIHandler.get<Recipe>(`/recipes/${id}`);
+        const response = await APIHandler.get<Recipe>(`/recipe/${id}`);
         return response.data;
     } catch (error) {
         throw error;
