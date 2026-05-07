@@ -28,6 +28,15 @@ export const getRecipe = async (id: number): Promise<Recipe> => {
     }
 }
 
+export const getFavoriteRecipe = async (id: number): Promise<Recipe[]> => {
+	try {
+		const response = await APIHandler.get<Recipe[]>(`/users/${id}/favourites`);
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
+}
+
 export const postFavoriteRecipe = async (userId: number, recipeId: number) => {
     try {
         const response = await APIHandler.post<Recipe>(`users/${userId}/favourites/${recipeId}`);

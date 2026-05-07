@@ -9,7 +9,7 @@ export interface Recipe {
 	prepTimeMinutes:   number;
 	category:          string;
 	createdAt:         Date;
-	createdBy:         number | null;
+	createdBy:         User | null;
 	recipeIngredients: RecipeIngredient[];
 	user:              User[];
 	steps:             Step[];

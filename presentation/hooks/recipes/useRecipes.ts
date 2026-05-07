@@ -2,6 +2,7 @@ import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {
     deleteFavoriteRecipe,
     getCommunityRecipes,
+    getFavoriteRecipe,
     getRecipe,
     getSystemRecipes,
     postFavoriteRecipe
@@ -27,6 +28,12 @@ export const useRecipes = (id?: number | string) => {
         queryFn: () => getRecipe(id as number),
         staleTime: 1000 * 60 * 60,
     });
+
+	const queryFavourite = useQuery({
+		queryKey: ['favourite-recipe', id],
+		queryFn: () => getFavoriteRecipe(id as number),
+		staleTime: 1000 * 60 * 60,
+	})
 
     const mutateAddFavourite = useMutation({
         mutationFn: ({userId, recipeId}: { userId: number, recipeId: number }) =>
@@ -55,6 +62,7 @@ export const useRecipes = (id?: number | string) => {
         querySystemRecipes,
         queryCommunityRecipes,
         queryRecipe,
+		queryFavourite,
         mutateAddFavourite,
         mutateRemoveFavourite
     }

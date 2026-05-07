@@ -27,8 +27,6 @@ const RecipeScreen = () => {
 
     return (
         <ScrollView className='flex-1 bg-white'>
-
-            {/* Imagen cabecera */}
             {imageError ? (
                 <View style={{height: 250, backgroundColor: '#f3f4f6'}} className='items-center justify-center'>
                     <Ionicons name='image-outline' size={48} color='#d1d5db'/>
@@ -44,7 +42,6 @@ const RecipeScreen = () => {
 
             <View className='px-4 pt-4 pb-10'>
 
-                {/* Nombre + corazón */}
                 <View className='flex-row items-center justify-between mb-2'>
                     <Text className='text-2xl font-work-black text-gray-900 flex-1 mr-4'>
                         {recipe.name}
@@ -58,7 +55,6 @@ const RecipeScreen = () => {
                     </TouchableOpacity>
                 </View>
 
-                {/* Categoría + tiempo */}
                 <View className='flex-row items-center mb-4' style={{gap: 16}}>
                     <Text className='text-sm text-primary font-work-medium'>
                         {recipe.category}
@@ -69,7 +65,6 @@ const RecipeScreen = () => {
                     </View>
                 </View>
 
-                {/* Ingredientes */}
                 <Text style={{fontSize: 18, fontWeight: '900'}} className='text-gray-800 mb-3'>
                     Ingredientes
                 </Text>
@@ -82,7 +77,6 @@ const RecipeScreen = () => {
                     ))}
                 </View>
 
-                {/* Pasos */}
                 <Text style={{fontSize: 18, fontWeight: '900'}} className='text-gray-800 mb-3'>
                     Preparación
                 </Text>
@@ -106,7 +100,6 @@ const RecipeScreen = () => {
                         ))}
                 </View>
 
-                {/* Seguidores */}
                 <Text style={{fontSize: 18, fontWeight: '900'}} className='text-gray-800 mb-3'>
                     Seguidores
                 </Text>
