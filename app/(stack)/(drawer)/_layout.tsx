@@ -21,6 +21,25 @@ const DrawerLayout = () => {
                     ),
                 }}
             />
+
+            <Drawer.Screen
+                name="profile/index"
+                options={{
+                    title: 'Perfil',
+                    drawerLabel: 'Perfil',
+                    drawerIcon: ({ color, size }) => (
+                        <Ionicons name="person-outline" size={size} color={color} />
+                    ),
+                }}
+            />
+
+            <Drawer.Screen
+                name="profile/[id]"
+                options={{
+                    title: 'Usuario',
+                    drawerItemStyle: { display: 'none' },
+                }}
+            />
         </Drawer>
     )
 }
