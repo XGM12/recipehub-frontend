@@ -26,8 +26,17 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
 
     return (
         <DrawerContentScrollView {...props}>
-            <View className='flex justify-center items-center bg-white rounded-full h-32 w-32'>
-                <Text className='text-primary font-work-black text-sm text-center'>RecipeHub</Text>
+            <View className='items-center py-6 px-4 mb-2'>
+                <View
+                    className='items-center justify-center bg-primary rounded-full mb-3'
+                    style={{ width: 72, height: 72 }}
+                >
+                    <Text className='text-white font-work-black text-2xl'>RH</Text>
+                </View>
+                <Text style={{ fontSize: 20, fontWeight: '900' }} className='text-gray-900'>
+                    RecipeHub
+                </Text>
+                <Text className='text-gray-400 text-sm mt-1'>{user?.name}</Text>
             </View>
 
             <DrawerItem

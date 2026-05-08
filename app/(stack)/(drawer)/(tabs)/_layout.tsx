@@ -16,6 +16,16 @@ const TabsLayout = () => {
                     tabBarIcon: ({ color }) => <Ionicons size={28} name="home-outline" color={color} />,
                 }}
             />
+
+            <Tabs.Screen
+                name="search/index"
+                options={{
+                    title: 'Búsqueda',
+                    tabBarShowLabel: false,
+                    headerShown: false,
+                    tabBarIcon: ({ color }) => <Ionicons size={28} name="search-outline" color={color} />,
+                }}
+            />
         </Tabs>
     )
 }

@@ -1,5 +1,5 @@
 import {Ionicons} from '@expo/vector-icons';
-import {useLocalSearchParams} from 'expo-router';
+import {router, useLocalSearchParams} from 'expo-router';
 import {useState} from 'react';
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {useRecipes} from '@/presentation/hooks/recipes/useRecipes';
@@ -117,7 +117,10 @@ const RecipeScreen = () => {
                                         {u.name.charAt(0).toUpperCase()}
                                     </Text>
                                 </View>
-                                <Text className='text-gray-800 font-work-medium'>{u.name}</Text>
+                                <Text
+                                    className='text-gray-800 font-work-medium'
+                                    onPress={() => router.push(`/profile/${u.id}`)}
+                                >{u.name}</Text>
                             </View>
                         ))}
                     </View>
