@@ -29,12 +29,12 @@ export const getRecipe = async (id: number): Promise<Recipe> => {
 }
 
 export const getFavoriteRecipe = async (id: number): Promise<Recipe[]> => {
-	try {
-		const response = await APIHandler.get<Recipe[]>(`/users/${id}/favourites`);
-		return response.data;
-	} catch (error) {
-		throw new Error("No se pudo obtener los favoritos del usuario: " + error);
-	}
+    try {
+        const response = await APIHandler.get<Recipe[]>(`/users/${id}/favourites`);
+        return response.data;
+    } catch (error) {
+        throw new Error("No se pudo obtener los favoritos del usuario: " + error);
+    }
 }
 
 export const postFavoriteRecipe = async (userId: number, recipeId: number) => {
@@ -60,5 +60,38 @@ export const getUserRecipes = async (id: number) => {
         return response.data;
     } catch (error) {
         throw new Error("No se puede obtener las recetas del usuario: " + error);
+    }
+}
+
+export interface RecipeForm {
+    name: string;
+    category: string;
+    prepTimeMinutes: number;
+    imageUrl: string;
+    steps: {
+        step_order: number;
+        description: string;
+    }[];
+    ingredients: {
+        name: string;
+        quantity: string;
+    }[];
+}
+
+export const postRecipe = async (id: number, recipe: RecipeForm) => {
+    try {
+        const response = await APIHandler.post<Recipe>(`/users/${id}/recipes`, recipe);
+        return response.data;
+    } catch (error) {
+        throw new Error("No se pudo crear la receta: " + error);
+    }
+}
+
+export const editRecipe = async (userId: number, recipeId: number, recipe: RecipeForm): Promise<Recipe> => {
+    try {
+        const response = await APIHandler.put<Recipe>(`/users/${userId}/recipes/${recipeId}`, recipe);
+        return response.data;
+    } catch (error) {
+        throw new Error("No se pudo editar la receta: " + error);
     }
 }

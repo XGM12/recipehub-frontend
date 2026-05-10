@@ -1,5 +1,5 @@
 export interface Step {
-	id:          number;
-	stepOrder:   number;
-	description: string;
+    id: number;
+    stepOrder: number;
+    description: string;
 }

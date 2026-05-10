@@ -4,6 +4,7 @@ import {useState} from 'react';
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {useRecipes} from '@/presentation/hooks/recipes/useRecipes';
 import {useUserStore} from '@/presentation/hooks/store/useStore';
+import BackButton from "@/presentation/components/shared/BackButton";
 
 const RecipeScreen = () => {
     const {id} = useLocalSearchParams();
@@ -16,6 +17,7 @@ const RecipeScreen = () => {
     if (!recipe) return null;
 
     const isFavourite = recipe.user.some(u => u.id === user?.id);
+    const isOwner = recipe.createdBy?.id === user?.id;
 
     const handleFavourite = () => {
         if (isFavourite) {
@@ -27,6 +29,12 @@ const RecipeScreen = () => {
 
     return (
         <ScrollView className='flex-1 bg-white'>
+            <View style={{position: 'absolute', top: 48, left: 16, zIndex: 10}}>
+                <BackButton/>
+            </View>
+
+            {/* [SOSTENIBILIDAD] Lazy loading con fallback: si la imagen falla no reintenta
+            la carga, evitando peticiones de red innecesarias y ahorrando batería. */}
             {imageError ? (
                 <View style={{height: 250, backgroundColor: '#f3f4f6'}} className='items-center justify-center'>
                     <Ionicons name='image-outline' size={48} color='#d1d5db'/>
@@ -41,18 +49,26 @@ const RecipeScreen = () => {
             )}
 
             <View className='px-4 pt-4 pb-10'>
-
                 <View className='flex-row items-center justify-between mb-2'>
                     <Text className='text-2xl font-work-black text-gray-900 flex-1 mr-4'>
                         {recipe.name}
                     </Text>
-                    <TouchableOpacity onPress={handleFavourite}>
-                        <Ionicons
-                            name={isFavourite ? 'heart' : 'heart-outline'}
-                            size={28}
-                            color={isFavourite ? '#ef4444' : '#d1d5db'}
-                        />
-                    </TouchableOpacity>
+                    <View className='flex-row items-center' style={{gap: 12}}>
+                        {isOwner && (
+                            <TouchableOpacity
+                                onPress={() => router.push(`/edit/${recipe?.id}`)}
+                            >
+                                <Ionicons name='pencil-outline' size={24} color='#6b7280'/>
+                            </TouchableOpacity>
+                        )}
+                        <TouchableOpacity onPress={handleFavourite}>
+                            <Ionicons
+                                name={isFavourite ? 'heart' : 'heart-outline'}
+                                size={28}
+                                color={isFavourite ? '#ef4444' : '#d1d5db'}
+                            />
+                        </TouchableOpacity>
+                    </View>
                 </View>
 
                 <View className='flex-row items-center mb-4' style={{gap: 16}}>

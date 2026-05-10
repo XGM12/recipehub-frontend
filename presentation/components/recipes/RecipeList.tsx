@@ -10,7 +10,7 @@ const RecipeList = ({recipes}: Props) => {
     return (
         <View>
             {recipes.map((recipe, index) => (
-                <RecipeCard key={`recipe-${recipe.id ?? index}`} recipe={recipe} />
+                <RecipeCard key={`recipe-${recipe.id ?? index}`} recipe={recipe}/>
             ))}
         </View>
     );

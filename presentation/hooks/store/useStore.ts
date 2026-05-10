@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import {create} from 'zustand';
+import {persist, createJSONStorage} from 'zustand/middleware';
 import * as SecureStore from 'expo-secure-store';
 import {User} from "@/types/User";
 
@@ -25,8 +25,8 @@ export const useUserStore = create<UserStore>()(
     persist(
         (set) => ({
             user: null,
-            login: (user: User) => set({ user }),
-            logout: () => set({ user: null }),
+            login: (user: User) => set({user}),
+            logout: () => set({user: null}),
         }),
         {
             name: 'user-storage',

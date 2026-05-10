@@ -8,16 +8,28 @@ const StackLayout = () => {
         }}>
             <Stack.Screen
                 name='auth/login'
-                options={{title: 'Login', headerShown: false}}/>
+                options={{title: 'Login', headerShown: false}}
+            />
             <Stack.Screen
                 name='auth/register'
-                options={{title: 'Register', headerShown: false}}/>
+                options={{title: 'Register', headerShown: false}}
+            />
             <Stack.Screen
                 name='(drawer)'
-                options={{title: 'App', headerShown: false}}/>
+                options={{title: 'App', headerShown: false}}
+            />
             <Stack.Screen
                 name='recipe/[id]'
-                options={{title: 'Recipe', headerShown: false}}/>
+                options={{title: 'Receta', headerShown: false}}
+            />
+            <Stack.Screen
+                name='create/index'
+                options={{title: 'Crear Receta', headerShown: false}}
+            />
+            <Stack.Screen
+                name='edit/[id]'
+                options={{title: 'Editar Receta', headerShown: false}}
+            />
         </Stack>
     )
 }

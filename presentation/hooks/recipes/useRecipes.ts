@@ -1,16 +1,18 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {
-    deleteFavoriteRecipe,
+    deleteFavoriteRecipe, editRecipe,
     getCommunityRecipes,
     getFavoriteRecipe,
     getRecipe,
     getSystemRecipes, getUserRecipes,
-    postFavoriteRecipe
+    postFavoriteRecipe, postRecipe, RecipeForm
 } from "@/core/actions/recipes_action";
 
 export const useRecipes = (id?: number | string) => {
     const queryClient = useQueryClient();
 
+    // [SOSTENIBILIDAD] staleTime de 1h evita llamadas repetidas al servidor
+    // reduciendo el consumo de red y procesamiento innecesario.
     const querySystemRecipes = useQuery({
         queryKey: ['system-recipes'],
         queryFn: () => getSystemRecipes(),
@@ -29,11 +31,11 @@ export const useRecipes = (id?: number | string) => {
         staleTime: 0,
     });
 
-	const queryFavourite = useQuery({
-		queryKey: ['favourite-recipe', id],
-		queryFn: () => getFavoriteRecipe(id as number),
-		staleTime: 0,
-	});
+    const queryFavourite = useQuery({
+        queryKey: ['favourite-recipe', id],
+        queryFn: () => getFavoriteRecipe(id as number),
+        staleTime: 0,
+    });
 
     const queryUserRecipes = useQuery({
         queryKey: ['user-recipes', id],
@@ -59,11 +61,22 @@ export const useRecipes = (id?: number | string) => {
         }
     });
 
-    const createRecipe = useMutation({
-        // CONTENT FOR THE POST OF THE RECIPE
+    const mutateCreateRecipe = useMutation({
+        mutationFn: ({id, recipe}: { id: number, recipe: RecipeForm }) =>
+            postRecipe(id, recipe),
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['community-recipes', id]});
             queryClient.invalidateQueries({queryKey: ['user-recipes', id]});
+        }
+    });
+
+    const mutateEditRecipe = useMutation({
+        mutationFn: ({userId, recipeId, recipe}: { userId: number, recipeId: number, recipe: RecipeForm }) =>
+            editRecipe(userId, recipeId, recipe),
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['community-recipes', id]});
+            queryClient.invalidateQueries({queryKey: ['user-recipes', id]});
+            queryClient.invalidateQueries({queryKey: ['recipe', id]});
         }
     });
 
@@ -71,10 +84,11 @@ export const useRecipes = (id?: number | string) => {
         querySystemRecipes,
         queryCommunityRecipes,
         queryRecipe,
-		queryFavourite,
+        queryFavourite,
         mutateAddFavourite,
         mutateRemoveFavourite,
-        createRecipe,
+        mutateCreateRecipe,
+        mutateEditRecipe,
         queryUserRecipes
     }
 }

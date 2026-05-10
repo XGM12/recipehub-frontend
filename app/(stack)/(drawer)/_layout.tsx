@@ -27,8 +27,8 @@ const DrawerLayout = () => {
                 options={{
                     title: 'Perfil',
                     drawerLabel: 'Perfil',
-                    drawerIcon: ({ color, size }) => (
-                        <Ionicons name="person-outline" size={size} color={color} />
+                    drawerIcon: ({color, size}) => (
+                        <Ionicons name="person-outline" size={size} color={color}/>
                     ),
                 }}
             />
@@ -37,7 +37,7 @@ const DrawerLayout = () => {
                 name="profile/[id]"
                 options={{
                     title: 'Usuario',
-                    drawerItemStyle: { display: 'none' },
+                    drawerItemStyle: {display: 'none'},
                 }}
             />
         </Drawer>

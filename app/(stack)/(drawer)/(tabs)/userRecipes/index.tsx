@@ -18,7 +18,7 @@ const UserRecipesScreen = () => {
                     Mis recetas
                 </Text>
                 <TouchableOpacity
-                    onPress={() => router.push('/recipe/create')}
+                    onPress={() => router.push('/create')}
                     className='flex-row items-center bg-primary px-4 py-2 rounded-xl'
                     style={{gap: 4}}
                 >
