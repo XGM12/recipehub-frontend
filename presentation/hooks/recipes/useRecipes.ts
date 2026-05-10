@@ -1,6 +1,6 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {
-    deleteFavoriteRecipe,
+    deleteFavoriteRecipe, editRecipe,
     getCommunityRecipes,
     getFavoriteRecipe,
     getRecipe,
@@ -59,11 +59,22 @@ export const useRecipes = (id?: number | string) => {
         }
     });
 
-    const createRecipe = useMutation({
-        mutationFn: ({id, recipe}: {id: number, recipe: RecipeForm}) => postRecipe(id, recipe),
+    const mutateCreateRecipe = useMutation({
+        mutationFn: ({id, recipe}: {id: number, recipe: RecipeForm}) =>
+            postRecipe(id, recipe),
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['community-recipes', id]});
             queryClient.invalidateQueries({queryKey: ['user-recipes', id]});
+        }
+    });
+
+    const mutateEditRecipe = useMutation({
+        mutationFn: ({ userId, recipeId, recipe }: { userId: number, recipeId: number, recipe: RecipeForm }) =>
+            editRecipe(userId, recipeId, recipe),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['community-recipes', id] });
+            queryClient.invalidateQueries({ queryKey: ['user-recipes', id] });
+            queryClient.invalidateQueries({ queryKey: ['recipe', id] });
         }
     });
 
@@ -74,7 +85,8 @@ export const useRecipes = (id?: number | string) => {
 		queryFavourite,
         mutateAddFavourite,
         mutateRemoveFavourite,
-        createRecipe,
+        mutateCreateRecipe,
+        mutateEditRecipe,
         queryUserRecipes
     }
 }

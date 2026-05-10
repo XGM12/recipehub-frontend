@@ -86,3 +86,12 @@ export const postRecipe = async (id: number, recipe: RecipeForm) => {
         throw new Error("No se pudo crear la receta: " + error);
     }
 }
+
+export const editRecipe = async (userId: number, recipeId: number, recipe: RecipeForm): Promise<Recipe> => {
+    try {
+        const response = await APIHandler.put<Recipe>(`/users/${userId}/recipes/${recipeId}`, recipe);
+        return response.data;
+    } catch (error) {
+        throw new Error("No se pudo editar la receta: " + error);
+    }
+}
