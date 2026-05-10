@@ -5,7 +5,7 @@ import {
     getFavoriteRecipe,
     getRecipe,
     getSystemRecipes, getUserRecipes,
-    postFavoriteRecipe
+    postFavoriteRecipe, postRecipe, RecipeForm
 } from "@/core/actions/recipes_action";
 
 export const useRecipes = (id?: number | string) => {
@@ -60,7 +60,7 @@ export const useRecipes = (id?: number | string) => {
     });
 
     const createRecipe = useMutation({
-        // CONTENT FOR THE POST OF THE RECIPE
+        mutationFn: ({id, recipe}: {id: number, recipe: RecipeForm}) => postRecipe(id, recipe),
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['community-recipes', id]});
             queryClient.invalidateQueries({queryKey: ['user-recipes', id]});

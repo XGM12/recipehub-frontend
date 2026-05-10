@@ -16,6 +16,7 @@ const RecipeScreen = () => {
     if (!recipe) return null;
 
     const isFavourite = recipe.user.some(u => u.id === user?.id);
+    const isOwner = recipe.createdBy?.id === user?.id;
 
     const handleFavourite = () => {
         if (isFavourite) {
@@ -41,18 +42,26 @@ const RecipeScreen = () => {
             )}
 
             <View className='px-4 pt-4 pb-10'>
-
                 <View className='flex-row items-center justify-between mb-2'>
                     <Text className='text-2xl font-work-black text-gray-900 flex-1 mr-4'>
                         {recipe.name}
                     </Text>
-                    <TouchableOpacity onPress={handleFavourite}>
-                        <Ionicons
-                            name={isFavourite ? 'heart' : 'heart-outline'}
-                            size={28}
-                            color={isFavourite ? '#ef4444' : '#d1d5db'}
-                        />
-                    </TouchableOpacity>
+                    <View className='flex-row items-center' style={{gap: 12}}>
+                        {isOwner && (
+                            <TouchableOpacity
+                                onPress={() => router.push(`/edit/${recipe?.id}`)}
+                            >
+                                <Ionicons name='pencil-outline' size={24} color='#6b7280'/>
+                            </TouchableOpacity>
+                        )}
+                        <TouchableOpacity onPress={handleFavourite}>
+                            <Ionicons
+                                name={isFavourite ? 'heart' : 'heart-outline'}
+                                size={28}
+                                color={isFavourite ? '#ef4444' : '#d1d5db'}
+                            />
+                        </TouchableOpacity>
+                    </View>
                 </View>
 
                 <View className='flex-row items-center mb-4' style={{gap: 16}}>

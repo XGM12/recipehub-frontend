@@ -62,3 +62,27 @@ export const getUserRecipes = async (id: number) => {
         throw new Error("No se puede obtener las recetas del usuario: " + error);
     }
 }
+
+export interface RecipeForm {
+    name: string;
+    category: string;
+    prepTimeMinutes: number;
+    imageUrl: string;
+    steps: {
+        step_order: number;
+        description: string;
+    }[];
+    ingredients: {
+        name: string;
+        quantity: string;
+    }[];
+}
+
+export const postRecipe = async (id: number, recipe: RecipeForm) => {
+    try {
+        const response = await APIHandler.post<Recipe>(`/users/${id}/recipes`, recipe);
+        return response.data;
+    } catch (error) {
+        throw new Error("No se pudo crear la receta: " + error);
+    }
+}
