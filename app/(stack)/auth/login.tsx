@@ -20,68 +20,76 @@ const LoginScreen = () => {
                     router.push("/home");
                 },
                 onError: () => {
-                    setError("No se ha podido acceder al usuario");
+                    setError("Correo o contraseña incorrectos");
                 }
             }
         );
     }
 
     return (
-        <View className="flex-1 bg-gray-100 justify-center px-6">
-            <View className="bg-white rounded-2xl p-6 shadow-lg">
-                <Text className="text-3xl font-bold text-center text-gray-800 mb-6">
-                    Inicio Sesión
+        <View className="flex-1 bg-white justify-center px-6">
+
+            {/* Logo */}
+            <View className="items-center mb-10">
+                <View
+                    className="items-center justify-center bg-primary rounded-full mb-4"
+                    style={{width: 80, height: 80}}
+                >
+                    <Text className="text-white font-work-black text-2xl">RH</Text>
+                </View>
+                <Text style={{fontSize: 32, fontWeight: '900', fontStyle: 'italic'}} className="text-primary">
+                    RecipeHub
+                </Text>
+                <Text className="text-gray-400 text-sm mt-1">Tu libro de cocina digital</Text>
+            </View>
+
+            {/* Formulario */}
+            <View className="bg-gray-50 rounded-3xl p-6" style={{gap: 16}}>
+                <Text style={{fontSize: 22, fontWeight: '900'}} className="text-gray-900 mb-2">
+                    Inicio de sesión
                 </Text>
 
-                <View className="mb-4">
-                    <Text className="text-gray-600 mb-2 font-medium">
-                        Correo electrónico
-                    </Text>
-
+                <View style={{gap: 6}}>
+                    <Text className="text-gray-600 font-work-medium text-sm">Correo electrónico</Text>
                     <ThemedTextInput
                         placeholder="ejemplo@email.com"
                         keyboardType="email-address"
                         autoCapitalize="none"
                         onChangeText={setEmail}
-                        className="border border-gray-300 rounded-xl px-4 py-3 text-gray-800"
+                        className="border border-gray-200 bg-white rounded-xl px-4 py-3 text-gray-800"
                     />
                 </View>
 
-                <View className="mb-6">
-                    <Text className="text-gray-600 mb-2 font-medium">
-                        Contraseña
-                    </Text>
+                <View style={{gap: 6}}>
+                    <Text className="text-gray-600 font-work-medium text-sm">Contraseña</Text>
                     <ThemedTextInput
-                        placeholder="Introduce aquí la contraseña"
+                        placeholder="Tu contraseña"
                         secureTextEntry
                         onChangeText={setPassword}
-                        className="border border-gray-300 rounded-xl px-4 py-3 text-gray-800"
+                        className="border border-gray-200 bg-white rounded-xl px-4 py-3 text-gray-800"
                     />
                 </View>
+
+                {error ? (
+                    <Text className="text-red-500 text-sm text-center">{error}</Text>
+                ) : null}
 
                 <Pressable
                     onPress={handleLogin}
-                    className="bg-blue-600 rounded-xl py-3 active:opacity-80"
+                    className="bg-primary rounded-xl py-4 active:opacity-80 mt-2"
                 >
-                    <Text className="text-white text-center font-semibold text-lg">
+                    <Text className="text-white text-center font-work-black text-lg">
                         Entrar
                     </Text>
                 </Pressable>
 
-                <View className="flex-row justify-center mt-6">
-                    <Text className="text-gray-500">
-                        ¿No tienes cuenta?{" "}
-                    </Text>
+                <View className="flex-row justify-center">
+                    <Text className="text-gray-500 text-sm">¿No tienes cuenta? </Text>
                     <Text
-                        className="text-blue-600 font-semibold"
+                        className="text-primary font-work-bold text-sm"
                         onPress={() => router.push("/auth/register")}
                     >
                         Regístrate
-                    </Text>
-                </View>
-                <View>
-                    <Text className="text-red-500">
-                        {error}
                     </Text>
                 </View>
             </View>
@@ -89,4 +97,4 @@ const LoginScreen = () => {
     );
 }
 
-export default LoginScreen
+export default LoginScreen;
