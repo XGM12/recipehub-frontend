@@ -11,6 +11,8 @@ import {
 export const useRecipes = (id?: number | string) => {
     const queryClient = useQueryClient();
 
+    // [SOSTENIBILIDAD] staleTime de 1h evita llamadas repetidas al servidor
+    // reduciendo el consumo de red y procesamiento innecesario.
     const querySystemRecipes = useQuery({
         queryKey: ['system-recipes'],
         queryFn: () => getSystemRecipes(),

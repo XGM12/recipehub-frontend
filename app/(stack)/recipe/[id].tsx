@@ -33,6 +33,8 @@ const RecipeScreen = () => {
                 <BackButton/>
             </View>
 
+            {/* [SOSTENIBILIDAD] Lazy loading con fallback: si la imagen falla no reintenta
+            la carga, evitando peticiones de red innecesarias y ahorrando batería. */}
             {imageError ? (
                 <View style={{height: 250, backgroundColor: '#f3f4f6'}} className='items-center justify-center'>
                     <Ionicons name='image-outline' size={48} color='#d1d5db'/>

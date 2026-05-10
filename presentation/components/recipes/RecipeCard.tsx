@@ -17,6 +17,8 @@ const RecipeCard = ({recipe}: Props) => {
             onPress={() => router.push(`/recipe/${recipe.id}`)}
             className='flex-row items-center bg-white rounded-2xl p-4 mb-3 shadow-sm border border-gray-100'
         >
+            {/* [SOSTENIBILIDAD] Lazy loading con fallback: si la imagen falla no reintenta
+            la carga, evitando peticiones de red innecesarias y ahorrando batería. */}
             {imageError ? (
                 <View style={{width: 72, height: 72, borderRadius: 36, backgroundColor: '#f3f4f6'}}
                       className='items-center justify-center'>
