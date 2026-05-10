@@ -13,7 +13,7 @@ const CreateFormScreen = () => {
             submitLabel='Guardar receta'
             isLoading={mutateCreateRecipe.isPending}
             onSubmit={(recipe) => mutateCreateRecipe.mutate(
-                { id: user!.id, recipe },
+                {id: user!.id, recipe},
                 {
                     onSuccess: (newRecipe) => router.push(`/recipe/${newRecipe.id}`),
                     onError: (error: any) => {

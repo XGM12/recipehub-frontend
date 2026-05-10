@@ -18,14 +18,14 @@ const RecipeCard = ({recipe}: Props) => {
             className='flex-row items-center bg-white rounded-2xl p-4 mb-3 shadow-sm border border-gray-100'
         >
             {imageError ? (
-                <View style={{ width: 72, height: 72, borderRadius: 36, backgroundColor: '#f3f4f6' }}
+                <View style={{width: 72, height: 72, borderRadius: 36, backgroundColor: '#f3f4f6'}}
                       className='items-center justify-center'>
-                    <Ionicons name='image-outline' size={28} color='#d1d5db' />
+                    <Ionicons name='image-outline' size={28} color='#d1d5db'/>
                 </View>
             ) : (
                 <Image
-                    source={{ uri: recipe.imageUrl }}
-                    style={{ width: 72, height: 72, borderRadius: 36 }}
+                    source={{uri: recipe.imageUrl}}
+                    style={{width: 72, height: 72, borderRadius: 36}}
                     resizeMode='cover'
                     onError={() => setImageError(true)}
                 />
@@ -44,9 +44,9 @@ const RecipeCard = ({recipe}: Props) => {
                     <TouchableOpacity
                         onPress={() => router.push(`/profile/${recipe.createdBy?.id}`)}
                         className='flex-row items-center mt-1'
-                        style={{ gap: 4 }}
+                        style={{gap: 4}}
                     >
-                        <Ionicons name='person-circle-outline' size={14} color='#9ca3af' />
+                        <Ionicons name='person-circle-outline' size={14} color='#9ca3af'/>
                         <Text className='text-xs text-gray-400'>
                             {recipe.createdBy?.name ?? '...'}
                         </Text>

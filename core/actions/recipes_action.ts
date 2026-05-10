@@ -29,12 +29,12 @@ export const getRecipe = async (id: number): Promise<Recipe> => {
 }
 
 export const getFavoriteRecipe = async (id: number): Promise<Recipe[]> => {
-	try {
-		const response = await APIHandler.get<Recipe[]>(`/users/${id}/favourites`);
-		return response.data;
-	} catch (error) {
-		throw new Error("No se pudo obtener los favoritos del usuario: " + error);
-	}
+    try {
+        const response = await APIHandler.get<Recipe[]>(`/users/${id}/favourites`);
+        return response.data;
+    } catch (error) {
+        throw new Error("No se pudo obtener los favoritos del usuario: " + error);
+    }
 }
 
 export const postFavoriteRecipe = async (userId: number, recipeId: number) => {

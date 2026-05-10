@@ -15,7 +15,7 @@ const EditFormScreen = () => {
             initialData={queryRecipe.data}
             isLoading={mutateEditRecipe.isPending}
             onSubmit={(recipe) => mutateEditRecipe.mutate(
-                { userId: user!.id, recipeId: Number(id), recipe },
+                {userId: user!.id, recipeId: Number(id), recipe},
                 {
                     onSuccess: () => router.push(`/recipe/${id}`),
                     onError: (error: any) => {

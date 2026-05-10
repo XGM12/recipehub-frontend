@@ -30,7 +30,7 @@ const RecipeScreen = () => {
     return (
         <ScrollView className='flex-1 bg-white'>
             <View style={{position: 'absolute', top: 48, left: 16, zIndex: 10}}>
-                <BackButton />
+                <BackButton/>
             </View>
 
             {imageError ? (

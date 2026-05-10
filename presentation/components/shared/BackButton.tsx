@@ -2,14 +2,10 @@ import {Ionicons} from '@expo/vector-icons';
 import {router} from 'expo-router';
 import {TouchableOpacity} from 'react-native';
 
-interface Props {
-    onPress?: () => void;
-}
-
-const BackButton = ({onPress}: Props) => {
+const BackButton = () => {
     return (
         <TouchableOpacity
-            onPress={onPress ?? (() => router.back())}
+            onPress={() => router.push("/home")}
             style={{
                 width: 40,
                 height: 40,

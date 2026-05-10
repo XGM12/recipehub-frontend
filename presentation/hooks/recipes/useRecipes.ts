@@ -29,11 +29,11 @@ export const useRecipes = (id?: number | string) => {
         staleTime: 0,
     });
 
-	const queryFavourite = useQuery({
-		queryKey: ['favourite-recipe', id],
-		queryFn: () => getFavoriteRecipe(id as number),
-		staleTime: 0,
-	});
+    const queryFavourite = useQuery({
+        queryKey: ['favourite-recipe', id],
+        queryFn: () => getFavoriteRecipe(id as number),
+        staleTime: 0,
+    });
 
     const queryUserRecipes = useQuery({
         queryKey: ['user-recipes', id],
@@ -60,7 +60,7 @@ export const useRecipes = (id?: number | string) => {
     });
 
     const mutateCreateRecipe = useMutation({
-        mutationFn: ({id, recipe}: {id: number, recipe: RecipeForm}) =>
+        mutationFn: ({id, recipe}: { id: number, recipe: RecipeForm }) =>
             postRecipe(id, recipe),
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['community-recipes', id]});
@@ -69,12 +69,12 @@ export const useRecipes = (id?: number | string) => {
     });
 
     const mutateEditRecipe = useMutation({
-        mutationFn: ({ userId, recipeId, recipe }: { userId: number, recipeId: number, recipe: RecipeForm }) =>
+        mutationFn: ({userId, recipeId, recipe}: { userId: number, recipeId: number, recipe: RecipeForm }) =>
             editRecipe(userId, recipeId, recipe),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['community-recipes', id] });
-            queryClient.invalidateQueries({ queryKey: ['user-recipes', id] });
-            queryClient.invalidateQueries({ queryKey: ['recipe', id] });
+            queryClient.invalidateQueries({queryKey: ['community-recipes', id]});
+            queryClient.invalidateQueries({queryKey: ['user-recipes', id]});
+            queryClient.invalidateQueries({queryKey: ['recipe', id]});
         }
     });
 
@@ -82,7 +82,7 @@ export const useRecipes = (id?: number | string) => {
         querySystemRecipes,
         queryCommunityRecipes,
         queryRecipe,
-		queryFavourite,
+        queryFavourite,
         mutateAddFavourite,
         mutateRemoveFavourite,
         mutateCreateRecipe,

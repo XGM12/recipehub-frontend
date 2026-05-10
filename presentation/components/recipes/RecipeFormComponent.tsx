@@ -1,10 +1,9 @@
 import {Ionicons} from '@expo/vector-icons';
 import {useEffect, useState} from 'react';
-import {Pressable, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import ThemedTextInput from '@/presentation/components/shared/ThemedTextInput';
 import {Recipe} from '@/types/Recipes';
 import {RecipeForm} from '@/core/actions/recipes_action';
-import {router} from "expo-router";
 import BackButton from "@/presentation/components/shared/BackButton";
 
 const CATEGORIES = ['Entrante', 'Principal', 'Postre'];
@@ -99,7 +98,7 @@ const RecipeFormComponent = ({initialData, onSubmit, isLoading, title, submitLab
 
     return (
         <ScrollView className='flex-1 bg-white px-4 pt-6 pb-10'>
-            <BackButton />
+            <BackButton/>
 
             <Text style={{fontSize: 22, fontWeight: '900'}} className='text-gray-800 mb-6'>
                 {title}
