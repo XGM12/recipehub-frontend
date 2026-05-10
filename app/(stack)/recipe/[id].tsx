@@ -4,6 +4,7 @@ import {useState} from 'react';
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {useRecipes} from '@/presentation/hooks/recipes/useRecipes';
 import {useUserStore} from '@/presentation/hooks/store/useStore';
+import BackButton from "@/presentation/components/shared/BackButton";
 
 const RecipeScreen = () => {
     const {id} = useLocalSearchParams();
@@ -28,6 +29,10 @@ const RecipeScreen = () => {
 
     return (
         <ScrollView className='flex-1 bg-white'>
+            <View style={{position: 'absolute', top: 48, left: 16, zIndex: 10}}>
+                <BackButton />
+            </View>
+
             {imageError ? (
                 <View style={{height: 250, backgroundColor: '#f3f4f6'}} className='items-center justify-center'>
                     <Ionicons name='image-outline' size={48} color='#d1d5db'/>

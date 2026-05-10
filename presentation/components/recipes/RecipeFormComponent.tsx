@@ -4,6 +4,8 @@ import {Pressable, ScrollView, Text, TouchableOpacity, View} from 'react-native'
 import ThemedTextInput from '@/presentation/components/shared/ThemedTextInput';
 import {Recipe} from '@/types/Recipes';
 import {RecipeForm} from '@/core/actions/recipes_action';
+import {router} from "expo-router";
+import BackButton from "@/presentation/components/shared/BackButton";
 
 const CATEGORIES = ['Entrante', 'Principal', 'Postre'];
 
@@ -71,6 +73,7 @@ const RecipeFormComponent = ({initialData, onSubmit, isLoading, title, submitLab
 
     // Submit
     const handleSubmit = () => {
+        console.log("hanle submit llamado")
         if (!name || !prepTimeMinutes || !imageUrl) {
             setError('Rellena todos los campos obligatorios');
             return;
@@ -96,6 +99,8 @@ const RecipeFormComponent = ({initialData, onSubmit, isLoading, title, submitLab
 
     return (
         <ScrollView className='flex-1 bg-white px-4 pt-6 pb-10'>
+            <BackButton />
+
             <Text style={{fontSize: 22, fontWeight: '900'}} className='text-gray-800 mb-6'>
                 {title}
             </Text>
@@ -216,21 +221,27 @@ const RecipeFormComponent = ({initialData, onSubmit, isLoading, title, submitLab
                 </View>
 
                 {steps.map((step, index) => (
-                    <View key={index} className='flex-row items-start mb-2' style={{gap: 8}}>
+                    <View key={index} className='flex-row items-start mb-3' style={{gap: 8}}>
                         <View
-                            className='items-center justify-center bg-primary rounded-full mt-3'
-                            style={{width: 28, height: 28, minWidth: 28}}
+                            className='items-center justify-center bg-primary rounded-full'
+                            style={{width: 28, height: 28, minWidth: 28, marginTop: 12}}
                         >
                             <Text className='text-white font-work-bold text-sm'>{index + 1}</Text>
                         </View>
-                        <ThemedTextInput
-                            placeholder={`Paso ${index + 1}...`}
-                            value={step.description}
-                            onChangeText={(v) => updateStep(index, v)}
-                            multiline
-                            className='border border-gray-200 bg-gray-50 rounded-xl px-3 py-3 text-gray-800 flex-1'
-                        />
-                        <TouchableOpacity onPress={() => removeStep(index)} className='mt-3'>
+
+                        <View style={{flex: 1}}>
+                            <ThemedTextInput
+                                placeholder={`Paso ${index + 1}...`}
+                                value={step.description}
+                                onChangeText={(v) => updateStep(index, v)}
+                                multiline
+                                textAlignVertical='top'
+                                style={{minHeight: 80, width: '100%'}}
+                                className='border border-gray-200 bg-gray-50 rounded-xl px-3 py-3 text-gray-800'
+                            />
+                        </View>
+
+                        <TouchableOpacity onPress={() => removeStep(index)} style={{marginTop: 12}}>
                             <Ionicons name='trash-outline' size={20} color='#ef4444'/>
                         </TouchableOpacity>
                     </View>
@@ -241,7 +252,7 @@ const RecipeFormComponent = ({initialData, onSubmit, isLoading, title, submitLab
                 <Text className='text-red-500 text-sm text-center mb-4'>{error}</Text>
             ) : null}
 
-            <Pressable
+            <TouchableOpacity
                 onPress={handleSubmit}
                 disabled={isLoading}
                 className='bg-primary rounded-xl py-4 active:opacity-80 mb-10'
@@ -250,7 +261,7 @@ const RecipeFormComponent = ({initialData, onSubmit, isLoading, title, submitLab
                 <Text className='text-white text-center font-work-black text-lg'>
                     {isLoading ? 'Guardando...' : submitLabel}
                 </Text>
-            </Pressable>
+            </TouchableOpacity>
         </ScrollView>
     );
 };

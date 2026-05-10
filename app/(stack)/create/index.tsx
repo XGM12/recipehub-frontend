@@ -11,9 +11,17 @@ const CreateFormScreen = () => {
         <RecipeFormComponent
             title='Nueva receta'
             submitLabel='Guardar receta'
+            isLoading={mutateCreateRecipe.isPending}
             onSubmit={(recipe) => mutateCreateRecipe.mutate(
                 { id: user!.id, recipe },
-                { onSuccess: () => router.back() }
+                {
+                    onSuccess: (newRecipe) => router.push(`/recipe/${newRecipe.id}`),
+                    onError: (error: any) => {
+                        console.log('Error detallado:', error);
+                        console.log('Error response:', error?.response?.data);
+                        console.log('Error status:', error?.response?.status);
+                    }
+                }
             )}
         />
     );
