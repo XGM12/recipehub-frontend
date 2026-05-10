@@ -27,7 +27,7 @@ const StackLayout = () => {
                 options={{title: 'Crear Receta', headerShown: false}}
             />
             <Stack.Screen
-                name='edit/index'
+                name='edit/[id]'
                 options={{title: 'Editar Receta', headerShown: false}}
             />
         </Stack>
