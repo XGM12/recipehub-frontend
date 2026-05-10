@@ -4,7 +4,7 @@ import {
     getCommunityRecipes,
     getFavoriteRecipe,
     getRecipe,
-    getSystemRecipes,
+    getSystemRecipes, getUserRecipes,
     postFavoriteRecipe
 } from "@/core/actions/recipes_action";
 
@@ -20,26 +20,33 @@ export const useRecipes = (id?: number | string) => {
     const queryCommunityRecipes = useQuery({
         queryKey: ['community-recipes', id],
         queryFn: () => getCommunityRecipes(id as number),
-        staleTime: 1000 * 60 * 60,
+        staleTime: 0,
     });
 
     const queryRecipe = useQuery({
         queryKey: ['recipe', id],
         queryFn: () => getRecipe(id as number),
-        staleTime: 1000 * 60 * 60,
+        staleTime: 0,
     });
 
 	const queryFavourite = useQuery({
 		queryKey: ['favourite-recipe', id],
 		queryFn: () => getFavoriteRecipe(id as number),
-		staleTime: 1000 * 60 * 60,
-	})
+		staleTime: 0,
+	});
+
+    const queryUserRecipes = useQuery({
+        queryKey: ['user-recipes', id],
+        queryFn: () => getUserRecipes(id as number),
+        staleTime: 0
+    });
 
     const mutateAddFavourite = useMutation({
         mutationFn: ({userId, recipeId}: { userId: number, recipeId: number }) =>
             postFavoriteRecipe(userId, recipeId),
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['recipe', id]});
+            queryClient.invalidateQueries({queryKey: ['favourite-recipe', id]});
         }
     });
 
@@ -48,13 +55,15 @@ export const useRecipes = (id?: number | string) => {
             deleteFavoriteRecipe(userId, recipeId),
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['recipe', id]});
+            queryClient.invalidateQueries({queryKey: ['favourite-recipe', id]});
         }
     });
 
     const createRecipe = useMutation({
         // CONTENT FOR THE POST OF THE RECIPE
         onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ['community-recipes', id]})
+            queryClient.invalidateQueries({queryKey: ['community-recipes', id]});
+            queryClient.invalidateQueries({queryKey: ['user-recipes', id]});
         }
     });
 
@@ -64,6 +73,8 @@ export const useRecipes = (id?: number | string) => {
         queryRecipe,
 		queryFavourite,
         mutateAddFavourite,
-        mutateRemoveFavourite
+        mutateRemoveFavourite,
+        createRecipe,
+        queryUserRecipes
     }
 }

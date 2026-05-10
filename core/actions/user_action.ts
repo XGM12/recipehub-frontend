@@ -6,6 +6,6 @@ export const getUserById = async (id: number): Promise<User> => {
         const response = await APIHandler.get<User>(`users/${id}`);
         return response.data;
     } catch (error) {
-        throw error;
+        throw new Error("No se pudo obtener los detalles del usuario: " + error);
     }
 }
