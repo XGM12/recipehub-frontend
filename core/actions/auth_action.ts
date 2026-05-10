@@ -9,7 +9,7 @@ export const postLogin = async (email: string, password: string): Promise<User> 
         });
         return response.data;
     } catch (error) {
-        throw error;
+        throw new Error("No se pudo hacer login: " + error);
     }
 }
 
@@ -26,6 +26,6 @@ export const postRegister = async (
         });
         return response.data;
     } catch (error) {
-        throw error;
+        throw new Error("No se pudo registrar el usuario: " + error);
     }
 }
