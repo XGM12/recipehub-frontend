@@ -1,6 +1,6 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {
-    deleteFavoriteRecipe, editRecipe,
+    deleteFavoriteRecipe, deleteRecipe, editRecipe,
     getCommunityRecipes,
     getFavoriteRecipe,
     getRecipe,
@@ -80,6 +80,15 @@ export const useRecipes = (id?: number | string) => {
         }
     });
 
+    const mutateDeleteRecipe = useMutation({
+        mutationFn: ({userId, recipeId}: { userId: number, recipeId: number }) =>
+            deleteRecipe(userId, recipeId),
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['community-recipes', id]});
+            queryClient.invalidateQueries({queryKey: ['user-recipes', id]});
+        }
+    });
+
     return {
         querySystemRecipes,
         queryCommunityRecipes,
@@ -89,6 +98,7 @@ export const useRecipes = (id?: number | string) => {
         mutateRemoveFavourite,
         mutateCreateRecipe,
         mutateEditRecipe,
-        queryUserRecipes
+        queryUserRecipes,
+        mutateDeleteRecipe
     }
 }

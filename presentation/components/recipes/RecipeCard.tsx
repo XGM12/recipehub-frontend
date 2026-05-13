@@ -33,7 +33,7 @@ const RecipeCard = ({recipe}: Props) => {
                 />
             )}
 
-            <View className='flex-1 ml-4'>
+            <View style={{flex: 1, marginLeft: 16}}>
                 <Text className='text-lg font-work-bold text-gray-900' numberOfLines={1}>
                     {recipe.name}
                 </Text>

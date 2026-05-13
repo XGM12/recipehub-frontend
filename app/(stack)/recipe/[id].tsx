@@ -9,23 +9,23 @@ import BackButton from "@/presentation/components/shared/BackButton";
 const RecipeScreen = () => {
     const {id} = useLocalSearchParams();
     const {user} = useUserStore();
-    const {queryRecipe, mutateAddFavourite, mutateRemoveFavourite} = useRecipes(id as string);
+    const {queryRecipe, mutateAddFavourite, mutateRemoveFavourite, mutateDeleteRecipe} = useRecipes(id as string);
     const [imageError, setImageError] = useState(false);
 
     const recipe = queryRecipe.data;
 
-    if (!recipe) return null;
-
-    const isFavourite = recipe.user.some(u => u.id === user?.id);
-    const isOwner = recipe.createdBy?.id === user?.id;
+    const isFavourite = recipe?.user.some(u => u.id === user?.id);
+    const isOwner = recipe?.createdBy?.id === user?.id;
 
     const handleFavourite = () => {
         if (isFavourite) {
-            mutateRemoveFavourite.mutate({userId: user!.id, recipeId: recipe.id});
+            mutateRemoveFavourite.mutate({userId: user!.id, recipeId: recipe?.id as number});
         } else {
-            mutateAddFavourite.mutate({userId: user!.id, recipeId: recipe.id});
+            mutateAddFavourite.mutate({userId: user!.id, recipeId: recipe?.id as number});
         }
     };
+
+    if (!recipe) return null;
 
     return (
         <ScrollView className='flex-1 bg-white'>
@@ -55,11 +55,17 @@ const RecipeScreen = () => {
                     </Text>
                     <View className='flex-row items-center' style={{gap: 12}}>
                         {isOwner && (
-                            <TouchableOpacity
-                                onPress={() => router.push(`/edit/${recipe?.id}`)}
-                            >
-                                <Ionicons name='pencil-outline' size={24} color='#6b7280'/>
-                            </TouchableOpacity>
+                            <View className='flex-row items-center' style={{gap: 12}}>
+                                <TouchableOpacity onPress={() => router.push(`/edit/${recipe?.id}`)}>
+                                    <Ionicons name='pencil-outline' size={24} color='#6b7280'/>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => {
+                                    mutateDeleteRecipe.mutate({userId: user!.id, recipeId: recipe.id});
+                                    router.replace("/home");
+                                }}>
+                                    <Ionicons name='trash-outline' size={24} color='#ef4444'/>
+                                </TouchableOpacity>
+                            </View>
                         )}
                         <TouchableOpacity onPress={handleFavourite}>
                             <Ionicons

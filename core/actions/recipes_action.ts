@@ -95,3 +95,11 @@ export const editRecipe = async (userId: number, recipeId: number, recipe: Recip
         throw new Error("No se pudo editar la receta: " + error);
     }
 }
+
+export const deleteRecipe = async (userId: number, recipeId: number) => {
+    try {
+        await APIHandler.delete(`/users/${userId}/recipes/${recipeId}`);
+    } catch (error) {
+        throw new Error("No se pudo borrar la receta: " + error);
+    }
+}
