@@ -1,6 +1,6 @@
 import {Ionicons} from '@expo/vector-icons';
 import {router, useLocalSearchParams} from 'expo-router';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {useRecipes} from '@/presentation/hooks/recipes/useRecipes';
 import {useUserStore} from '@/presentation/hooks/store/useStore';
